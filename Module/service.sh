@@ -1,63 +1,65 @@
-MODPATH="${0%/*}"
-. $MODPATH/common_func.sh
+#!/bin/sh
 
-# Conditional sensitive properties
+check_reset_prop() {
+    local NAME=$1
+    local EXPECTED=$2
+    local VALUE=$(resetprop $NAME)
+    [ -z $VALUE ] || [ $VALUE = $EXPECTED ] || resetprop -n $NAME $EXPECTED
+}
 
-# Magisk Recovery Mode
-resetprop_if_match ro.boot.mode recovery unknown
-resetprop_if_match ro.bootmode recovery unknown
-resetprop_if_match vendor.boot.mode recovery unknown
-resetprop_if_match ro.boot.hwc CN GLOBAL
-resetprop_if_match ro.boot.hwcountry China GLOBAL
+contains_reset_prop() {
+    local NAME=$1
+    local CONTAINS=$2
+    local NEWVAL=$3
+    [[ "$(resetprop $NAME)" = *"$CONTAINS"* ]] && resetprop -n $NAME $NEWVAL
+}
 
-# SELinux
-resetprop_if_diff ro.boot.selinux enforcing
-# use delete since it can be 0 or 1 for enforcing depending on OEM
-if [ -n "$(resetprop ro.build.selinux)" ]; then
-    resetprop --delete ro.build.selinux
+empty_reset_prop() {
+    local NAME=$1
+    local NEWVAL=$2
+    local VALUE=$(getprop "$NAME")
+    [ -z "$VALUE" ] && resetprop -n $NAME $NEWVAL
+}
+
+resetprop -w sys.boot_completed 0
+
+check_reset_prop "ro.boot.vbmeta.device_state" "locked"
+check_reset_prop "ro.boot.verifiedbootstate" "green"
+check_reset_prop "ro.boot.flash.locked" "1"
+check_reset_prop "ro.boot.veritymode" "enforcing"
+check_reset_prop "ro.boot.warranty_bit" "0"
+check_reset_prop "ro.warranty_bit" "0"
+check_reset_prop "ro.debuggable" "0"
+check_reset_prop "ro.force.debuggable" "0"
+check_reset_prop "ro.secure" "1"
+check_reset_prop "ro.adb.secure" "1"
+check_reset_prop "ro.build.type" "user"
+check_reset_prop "ro.build.tags" "release-keys"
+check_reset_prop "ro.vendor.boot.warranty_bit" "0"
+check_reset_prop "ro.vendor.warranty_bit" "0"
+check_reset_prop "vendor.boot.vbmeta.device_state" "locked"
+check_reset_prop "vendor.boot.verifiedbootstate" "green"
+check_reset_prop "sys.oem_unlock_allowed" "0"
+
+# MIUI specific
+check_reset_prop "ro.secureboot.lockstate" "locked"
+
+# Realme specific
+check_reset_prop "ro.boot.realmebootstate" "green"
+check_reset_prop "ro.boot.realme.lockstate" "1"
+
+# Hide that we booted from recovery when magisk is in recovery mode
+contains_reset_prop "ro.bootmode" "recovery" "unknown"
+contains_reset_prop "ro.boot.bootmode" "recovery" "unknown"
+contains_reset_prop "vendor.boot.bootmode" "recovery" "unknown"
+
+# Reset vbmeta related prop
+if [ -f "/data/adb/boot_hash" ]; then
+    hash_value=$(grep -v '^#' "/data/adb/boot_hash" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+    [ -z "$hash_value" ] && rm -f /data/adb/boot_hash || resetprop -n ro.boot.vbmeta.digest "$hash_value"
 fi
-# use toybox to protect stat access time reading
-if [ "$(toybox cat /sys/fs/selinux/enforce)" = "0" ]; then
-    chmod 640 /sys/fs/selinux/enforce
-    chmod 440 /sys/fs/selinux/policy
-fi
-
-# Conditional late sensitive properties
-
-# must be set after boot_completed for various OEMs
-until [ "$(getprop sys.boot_completed)" = "1" ]; do
-    sleep 1
-done
-
-# SafetyNet/Play Integrity + OEM
-# avoid bootloop on some Xiaomi devices
-resetprop_if_diff ro.secureboot.lockstate locked
-# avoid breaking Realme fingerprint scanners
-resetprop_if_diff ro.boot.flash.locked 1
-resetprop_if_diff ro.boot.realme.lockstate 1
-# avoid breaking Oppo fingerprint scanners
-resetprop_if_diff ro.boot.vbmeta.device_state locked
-# avoid breaking OnePlus display modes/fingerprint scanners
-resetprop_if_diff vendor.boot.verifiedbootstate green
-# avoid breaking OnePlus/Oppo fingerprint scanners on OOS/ColorOS 12+
-resetprop_if_diff ro.boot.verifiedbootstate green
-resetprop_if_diff ro.boot.veritymode enforcing
-resetprop_if_diff vendor.boot.vbmeta.device_state locked
-
-# Other
-resetprop_if_diff sys.oem_unlock_allowed 0
-resetprop_if_diff init.svc.flash_recovery stopped
-
-settings_delete_if_match global hidden_api_policy
-settings_delete_if_match global hidden_api_policy_p_apps
-settings_delete_if_match global hidden_api_policy_pre_p_apps
-settings_delete_if_match global hidden_api_blacklist_exemptions
-settings_delete_if_match global hidden_api_blacklist_exe
-
-if [ -d "/data/local/tmp/shizuku" ]; then
-	rm -rf /data/local/tmp/shizuku
-	rm -rf /data/local/tmp/shizuku_starter
-	pm uninstall -k --user 0 moe.shizuku.privileged.api
-fi
-
-#pm list packages | grep com.google.android.safetycore && pm uninstall com.google.android.safetycore
+empty_reset_prop "ro.boot.vbmeta.device_state" "locked"
+empty_reset_prop "ro.boot.vbmeta.invalidate_on_error" "yes"
+empty_reset_prop "ro.boot.vbmeta.avb_version" "1.0"
+empty_reset_prop "ro.boot.vbmeta.hash_alg" "sha256"
+empty_reset_prop "ro.boot.vbmeta.size" "4096"

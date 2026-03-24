@@ -23,27 +23,25 @@ fi
 rm -rf "$t"
 fixed_targets="\
 android
-com.android.vending!
-com.google.android.gsf!
-com.google.android.gms!
-io.github.vvb2060.keyattestation!
-io.github.vvb2060.mahoshojo!
-com.google.android.contactkeys!
-com.google.android.ims!
-com.google.android.safetycore!
-com.google.android.apps.walletnfcrel!
-com.google.android.apps.nbu.paisa.user!
-com.youhu.laifu!
-com.whatsapp!
-com.whatsapp.w4b!
-com.reveny.nativecheck!
-icu.nullptr.nativetest!
-com.android.nativetest!
-io.liankong.riskdetector!
-me.garfieldhan.holmes!
-luna.safe.luna!
-com.zhenxi.hunter!
-com.studio.duckdetector?"
+com.android.vending?
+com.google.android.gsf?
+com.google.android.gms?
+io.github.vvb2060.keyattestation?
+io.github.vvb2060.mahoshojo?
+com.google.android.contactkeys?
+com.google.android.ims?
+com.google.android.safetycore?
+com.google.android.apps.walletnfcrel?
+com.google.android.apps.nbu.paisa.user?
+com.reveny.nativecheck?
+icu.nullptr.nativetest?
+com.android.nativetest?
+io.liankong.riskdetector?
+me.garfieldhan.holmes?
+luna.safe.luna?
+com.zhenxi.hunter?
+com.studio.duckdetector?
+com.eltavine.duckdetector?"
 for entry in $fixed_targets; do
     if ! echo "$entry" >> "$t"; then
         log_message "ERROR: Failed to write $entry to $t"

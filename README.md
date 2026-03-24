@@ -35,13 +35,13 @@ https://t.me/yurikernel
 > [!NOTE]
 >
 > If you get errors similar to the ones below in action.sh or in module installations, you may need to install the modules below them.
->
-
-For the error on the side 
-"ERROR: Tricky Store module not found!"
+> For the error on the side 
+> "ERROR: Tricky Store module not found!"
 > [Tricky Store](https://github.com/5ec1cff/TrickyStore/releases/latest)
-
-For the error on the side "ERROR: Keybox updated failed!"
+>
+> You can help us translating this project via [Crowdin](https://crwd.in/yurikey/e80b9adaa706626608af1cf366ca41fe2694978)
+> 
+> For the error on the side "ERROR: Keybox updated failed!"
 > [BusyBox](https://mmrl.dev/repository/grdoglgmr/busybox-ndk)
 
 ## Contributors

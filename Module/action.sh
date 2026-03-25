@@ -4,6 +4,12 @@ MODPATH="${0%/*}"
 set +o standalone
 unset ASH_STANDALONE
 
+
+# Hide Zygisk Next
+/data/adb/modules/zygisksu/bin/zygiskd enforce-denylist just_umount
+/data/adb/modules/zygisksu/bin/zygiskd memory-type anonymous
+/data/adb/modules/zygisksu/bin/zygiskd linker builtin
+
 for SCRIPT in \
   "kill_google_process.sh" \
   "target_txt.sh" \

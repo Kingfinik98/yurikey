@@ -7,8 +7,8 @@ const THEME_PRESETS = {
     light:{ "--ui-bg": "#d7e2ef", "--ui-card-bg": "#ecf2f8", "--ui-card-border": "#bfd0e3", "--ui-pill-bg": "#6b9dd8", "--ui-pill-text": "#ffffff", "--ui-nav-active": "#356da8", "--ui-nav-text": "#36516f", "--ui-select-bg": "#d7e6f5", "--ui-select-border": "#b5cee7", "--ui-select-panel": "#e7f0f8", "--ui-select-panel-border": "#c4d7ea" },
   },
   rose: {
-    dark: { "--ui-bg": "#151824", "--ui-card-bg": "#262b3b", "--ui-card-border": "#3f475c", "--ui-pill-bg": "#d9a5bd", "--ui-pill-text": "#472033", "--ui-nav-active": "#6f3f5f", "--ui-nav-text": "#d8d9e5", "--ui-select-bg": "#4f4f62", "--ui-select-border": "#89879a", "--ui-select-panel": "#353545", "--ui-select-panel-border": "#77768b" },
-    light:{ "--ui-bg": "#e4e1e8", "--ui-card-bg": "#f4f0f6", "--ui-card-border": "#cfc7d9", "--ui-pill-bg": "#c98aa8", "--ui-pill-text": "#ffffff", "--ui-nav-active": "#956182", "--ui-nav-text": "#4f4a5f", "--ui-select-bg": "#e8deeb", "--ui-select-border": "#c8bdd1", "--ui-select-panel": "#f1e9f4", "--ui-select-panel-border": "#d5c7dc" },
+    dark: { "--ui-bg": "#221516", "--ui-card-bg": "#362124", "--ui-card-border": "#5a3539", "--ui-pill-bg": "#ffb4a9", "--ui-pill-text": "#690002", "--ui-nav-active": "#930005", "--ui-nav-text": "#ffdad5", "--ui-select-bg": "#5f3a3e", "--ui-select-border": "#9a6c72", "--ui-select-panel": "#452a2d", "--ui-select-panel-border": "#7a4c51" },
+    light:{ "--ui-bg": "#fff3f1", "--ui-card-bg": "#ffe8e4", "--ui-card-border": "#efc7c1", "--ui-pill-bg": "#bb1614", "--ui-pill-text": "#ffffff", "--ui-nav-active": "#bb1614", "--ui-nav-text": "#410001", "--ui-select-bg": "#ffdad5", "--ui-select-border": "#e4b7b1", "--ui-select-panel": "#ffe9e5", "--ui-select-panel-border": "#e8c1bc" },
   },
   forest: {
     dark: { "--ui-bg": "#131f1a", "--ui-card-bg": "#203128", "--ui-card-border": "#355240", "--ui-pill-bg": "#8fcf99", "--ui-pill-text": "#1e4a2b", "--ui-nav-active": "#2f7044", "--ui-nav-text": "#d7e8dc", "--ui-select-bg": "#3f5446", "--ui-select-border": "#7ea289", "--ui-select-panel": "#2a3a31", "--ui-select-panel-border": "#66806f" },

@@ -82,6 +82,14 @@ body {
   color: #f3edf7;
 }
 
+.module-version-label {
+  font-size: 0.98rem;
+}
+
+.module-version-value {
+  font-size: 1.08rem;
+}
+
 .home-top-controls {
   display: flex;
   flex-direction: column;
@@ -126,6 +134,15 @@ body {
 .card-title {
   color: #d0c3da;
   font-size: 1rem;
+}
+
+.section-heading {
+  font-size: 1.14rem;
+  line-height: 1.35;
+}
+
+.long-heading {
+  font-size: 1.08rem;
 }
 
 .card-value {

@@ -40,8 +40,11 @@ body {
 .menu-btn {
   width: 100%;
   justify-content: center;
-  font-size: 1.02rem;
-  line-height: 1.35;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  line-height: 1.2;
 }
 
 #home-page #refresh-info-btn,
@@ -69,14 +72,22 @@ body {
   border-radius: 1rem;
   background: #362f3b;
   border: 1px solid #52455a;
-  min-width: 150px;
+  width: 100%;
 }
 
 .mini-card-value {
   margin: 0.35rem 0 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #f3edf7;
+}
+
+.home-top-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 
 #home-page #refresh-info-btn:hover,
@@ -114,13 +125,13 @@ body {
 
 .card-title {
   color: #d0c3da;
-  font-size: 1.06rem;
+  font-size: 1rem;
 }
 
 .card-value {
   margin: 0.65rem 0 0;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   color: #f3edf7;
 }
 
@@ -184,12 +195,6 @@ body {
 .nav-btn span {
   font-size: 0.92rem;
   white-space: nowrap;
-}
-
-#actions-page .stack .menu-btn,
-#advance-menu .stack .menu-btn,
-#settings-page .update-support .menu-btn {
-  font-size: 1.05rem;
 }
 
 .custom-dropdown {
@@ -299,12 +304,12 @@ body {
 }
 
 .contrib-role {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: var(--on-surface-variant);
 }
 
 .small-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.5;
 }
 

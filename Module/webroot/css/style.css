@@ -166,10 +166,17 @@ body {
 #home-page #refresh-info-btn.rotating {
   opacity: 1 !important;
   background: var(--ui-pill-bg) !important;
+  background-image: none !important;
   color: var(--ui-pill-text) !important;
   border-color: var(--ui-pill-border) !important;
   box-shadow: none !important;
   filter: none !important;
+}
+
+#home-page #refresh-info-btn.rotating:hover,
+#home-page #refresh-info-btn.rotating:active {
+  background: var(--ui-pill-bg) !important;
+  background-image: none !important;
 }
 
 #home-page #refresh-info-btn.rotating::before,

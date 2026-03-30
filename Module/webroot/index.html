@@ -17,9 +17,9 @@
         <h4 class="center-align">Yurikey Manager</h4>
 
         <div class="row responsive middle-align gap">
-          <div class="max">
+          <div class="mini-card">
             <h6 class="no-margin" data-i18n="home_version">Version</h6>
-            <h5 id="version-text" class="no-margin primary-text">Error</h5>
+            <p id="version-text" class="mini-card-value">Error</p>
           </div>
           <button id="refresh-info-btn" class="menu-btn" data-script="device-info.sh" data-i18n="home_refresh">Refresh Info</button>
         </div>
@@ -137,6 +137,18 @@
               <li data-lang="ro-md">🇷🇴 Romania</li>
               <li data-lang="pl">🇵🇱 Polish</li>
               <li data-lang="hu">🇭🇺 Hungary</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="surface-variant block">
+          <h6>Clock Format</h6>
+          <div class="custom-dropdown lang-select-wrap">
+            <button id="clock-format-btn" class="menu-btn lang-select-btn">Auto (Device)</button>
+            <ul id="clock-format-options" class="dropdown-list lang-options-list">
+              <li data-format="auto">Auto (Device)</li>
+              <li data-format="24h">24-hour (00:00)</li>
+              <li data-format="12h">12-hour (AM/PM)</li>
             </ul>
           </div>
         </article>

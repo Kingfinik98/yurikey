@@ -18,6 +18,11 @@
   --ui-select-panel-border: #8b7d89;
   --ui-snackbar-bg: #2f2631;
   --ui-snackbar-border: #78667b;
+  --ui-snackbar-text: #f3edf7;
+  --ui-snackbar-info: color-mix(in srgb, var(--ui-pill-bg) 52%, #7aa3ff 48%);
+  --ui-snackbar-success: color-mix(in srgb, var(--ui-pill-bg) 35%, #5fcf8f 65%);
+  --ui-snackbar-warning: color-mix(in srgb, var(--ui-pill-bg) 55%, #f3b661 45%);
+  --ui-snackbar-error: color-mix(in srgb, var(--ui-pill-bg) 45%, #df6f78 55%);
 }
 
 :root[data-theme-mode="light"] {
@@ -40,6 +45,11 @@
   --ui-select-panel-border: #cfbdd5;
   --ui-snackbar-bg: #f2e9f4;
   --ui-snackbar-border: #ccb8d1;
+  --ui-snackbar-text: #2f2433;
+  --ui-snackbar-info: color-mix(in srgb, var(--ui-pill-bg) 58%, #5776c5 42%);
+  --ui-snackbar-success: color-mix(in srgb, var(--ui-pill-bg) 36%, #3d9a66 64%);
+  --ui-snackbar-warning: color-mix(in srgb, var(--ui-pill-bg) 52%, #b9791e 48%);
+  --ui-snackbar-error: color-mix(in srgb, var(--ui-pill-bg) 40%, #ba4c55 60%);
 }
 
 body {
@@ -450,7 +460,7 @@ body {
 }
 
 .snackbar-text {
-  color: var(--ui-text);
+  color: var(--ui-snackbar-text);
   font-weight: 600;
   font-size: 0.92rem;
 }
@@ -464,23 +474,23 @@ body {
   animation-fill-mode: forwards;
 }
 
-.snackbar.success { border-color: #5fb17a; }
-.snackbar.success .snackbar-progress { background: #5fb17a; }
+.snackbar.success { border-color: var(--ui-snackbar-success); }
+.snackbar.success .snackbar-progress { background: var(--ui-snackbar-success); }
 
-.snackbar.error { border-color: #de6c75; }
-.snackbar.error .snackbar-progress { background: #de6c75; }
+.snackbar.error { border-color: var(--ui-snackbar-error); }
+.snackbar.error .snackbar-progress { background: var(--ui-snackbar-error); }
 
-.snackbar.warning { border-color: #dfa761; }
-.snackbar.warning .snackbar-progress { background: #dfa761; }
+.snackbar.warning { border-color: var(--ui-snackbar-warning); }
+.snackbar.warning .snackbar-progress { background: var(--ui-snackbar-warning); }
 
-.snackbar.info { border-color: #8c78c9; }
-.snackbar.info .snackbar-progress { background: #8c78c9; }
+.snackbar.info { border-color: var(--ui-snackbar-info); }
+.snackbar.info .snackbar-progress { background: var(--ui-snackbar-info); }
 
 .snackbar-spinner {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid #d7cce1;
+  border: 2px solid var(--ui-snackbar-text);
   border-right-color: transparent;
   animation: snackbar-spin 0.75s linear infinite;
 }

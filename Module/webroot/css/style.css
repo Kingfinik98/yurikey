@@ -117,6 +117,7 @@ body {
 #home-page #refresh-info-btn {
   width: auto;
   min-width: 180px;
+  align-self: flex-start;
 }
 
 .mini-card {
@@ -125,6 +126,8 @@ body {
   background: var(--ui-card-bg);
   border: 1px solid var(--ui-card-border);
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .mini-card-value {
@@ -145,7 +148,7 @@ body {
 .home-top-controls {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0.7rem;
   margin-bottom: 0.5rem;
 }
@@ -159,10 +162,18 @@ body {
 
 #home-page #refresh-info-btn:disabled,
 #home-page #refresh-info-btn.rotating {
-  opacity: 1;
-  background: var(--ui-pill-bg);
-  color: var(--ui-pill-text);
-  border-color: var(--ui-pill-border);
+  opacity: 1 !important;
+  background: var(--ui-pill-bg) !important;
+  color: var(--ui-pill-text) !important;
+  border-color: var(--ui-pill-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+#home-page #refresh-info-btn.rotating::before,
+#home-page #refresh-info-btn.rotating::after {
+  color: var(--ui-pill-text) !important;
+  border-color: var(--ui-pill-text) !important;
 }
 
 #home-page #refresh-info-btn:active,

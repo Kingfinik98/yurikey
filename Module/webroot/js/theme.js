@@ -61,12 +61,12 @@ function withDerived(colors, mode) {
     "--ui-pill-border": mix(base, mode === "light" ? "#ffffff" : "#f9e7f2", 0.35),
     "--ui-nav-text-active": "#ffffff",
     "--ui-snackbar-text": mode === "light" ? "#2f2433" : "#f3edf7",
-    "--ui-snackbar-bg": mode === "light" ? mix(card, "#ffffff", 0.36) : mix(card, "#171b26", 0.45),
-    "--ui-snackbar-border": mix(base, mode === "light" ? "#6a6f7b" : "#f1f5ff", mode === "light" ? 0.22 : 0.24),
-    "--ui-snackbar-info": mix(base, "#4f8af9", mode === "light" ? 0.42 : 0.5),
-    "--ui-snackbar-success": mix(base, "#43b77f", mode === "light" ? 0.52 : 0.6),
-    "--ui-snackbar-warning": mix(base, "#d88f2b", mode === "light" ? 0.48 : 0.52),
-    "--ui-snackbar-error": mix(base, "#c4555e", mode === "light" ? 0.55 : 0.58),
+    "--ui-snackbar-bg": mode === "light" ? mix(card, "#ffffff", 0.28) : mix(card, "#151a24", 0.34),
+    "--ui-snackbar-border": mode === "light" ? mix(card, "#7d8898", 0.28) : mix(card, "#c6d3e6", 0.22),
+    "--ui-snackbar-info": mode === "light" ? "#2f6fdd" : "#78a9ff",
+    "--ui-snackbar-success": mode === "light" ? "#2f9a65" : "#63d49a",
+    "--ui-snackbar-warning": mode === "light" ? "#b26a11" : "#f0b35d",
+    "--ui-snackbar-error": mode === "light" ? "#b5464f" : "#f08b95",
     "--ui-pill-text": pillText,
   };
 }

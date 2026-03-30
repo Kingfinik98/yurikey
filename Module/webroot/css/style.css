@@ -42,6 +42,32 @@ body {
   justify-content: center;
 }
 
+#actions-page .menu-btn,
+#advance-menu .menu-btn,
+#update-page .menu-btn {
+  border-radius: 999px;
+  min-height: 46px;
+  padding: 0.65rem 1rem;
+  border: 1px solid #f4bfd5;
+  background: #eba3c2;
+  color: #4f1835;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: none;
+}
+
+#actions-page .menu-btn:hover,
+#advance-menu .menu-btn:hover,
+#update-page .menu-btn:hover {
+  background: #f0b4cd;
+}
+
+#actions-page .menu-btn:active,
+#advance-menu .menu-btn:active,
+#update-page .menu-btn:active {
+  transform: translateY(1px);
+}
+
 .home-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

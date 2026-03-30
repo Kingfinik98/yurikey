@@ -2,35 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("main.js active");
 
   const BASE_SCRIPT = "/data/adb/modules/Yurikey/Yuri/";
-  let snackbarTimer;
   // Make sure language.js is already loaded so that t and tFormat are available
 
-  function showToast(message, type = "info", duration = 6000) {
-    const snackbar = document.getElementById("global-snackbar");
-    const icon = document.getElementById("global-snackbar-icon");
-    const text = document.getElementById("global-snackbar-text");
-    if (!snackbar || !icon || !text || !message) return;
-
-    const icons = {
-      success: "check_circle",
-      error: "error",
-      warning: "warning",
-      info: "info",
-    };
-
-    snackbar.classList.remove("snackbar-success", "snackbar-error", "snackbar-warning", "snackbar-info", "active");
-    snackbar.classList.add(`snackbar-${type}`);
-
-    icon.textContent = icons[type] || icons.info;
-    text.textContent = message;
-
-    clearTimeout(snackbarTimer);
-    snackbar.classList.add("active");
-
-    const timeout = Math.max(4000, Math.min(10000, Number(duration) || 6000));
-    snackbarTimer = setTimeout(() => {
-      snackbar.classList.remove("active");
-    }, timeout);
+  function showToast(_message, _type = "info", _duration = 3000) {
+    // Snackbar feature removed by request.
   }
 
   function runScript(scriptName, basePath, button) {

@@ -471,20 +471,3 @@ body {
   font-size: 1rem;
   line-height: 1.6;
 }
-
-#global-snackbar {
-  background: var(--ui-card-bg);
-  color: var(--ui-text);
-  border: 1px solid var(--ui-card-border);
-  box-shadow: 0 10px 24px color-mix(in srgb, var(--ui-nav-active) 30%, #000000 70%);
-  z-index: 1100;
-}
-
-#global-snackbar i {
-  color: var(--ui-pill-bg);
-}
-
-#global-snackbar.snackbar-success i { color: #3fb274; }
-#global-snackbar.snackbar-error i { color: #d05b65; }
-#global-snackbar.snackbar-warning i { color: #d89231; }
-#global-snackbar.snackbar-info i { color: var(--ui-pill-bg); }

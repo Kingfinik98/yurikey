@@ -67,5 +67,16 @@
   "settings_language": "Dil",
   "menu_keybox_title": "Keybox",
   "advance_upd_yurirka": "RKA yapılandırmasını güncelle",
-  "advance_widevinel1": "Widevine L1 hatasını düzelt"
+  "advance_widevinel1": "Widevine L1 hatasını düzelt",
+  "settings_snackbar_colors": "Snackbar Renkleri",
+  "settings_snackbar_colors_desc": "Bu renkler optimize tema paleti hesaplarından bağımsız olarak doğrudan uygulanır.",
+  "snackbar_info_color": "Bilgi",
+  "snackbar_success_color": "Başarılı",
+  "snackbar_warning_color": "Uyarı",
+  "snackbar_error_color": "Hata",
+  "snackbar_text_color": "Metin",
+  "snackbar_output_title": "Betik çıktısı",
+  "dialog_close": "Kapat",
+  "snackbar_tap_for_output": "Betik çıktısını görmek için bir kez dokun",
+  "snackbar_no_output": "Betik çıktısı bulunamadı."
 }

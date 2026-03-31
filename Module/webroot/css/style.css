@@ -16,6 +16,11 @@
   --ui-select-border: #6f90b2;
   --ui-select-panel: #273a4e;
   --ui-select-panel-border: #587493;
+  --snackbar-info: #2196f3;
+  --snackbar-success: #43a047;
+  --snackbar-warning: #f9a825;
+  --snackbar-error: #e53935;
+  --snackbar-text: #ffffff;
 }
 
 :root[data-theme-mode="light"] {
@@ -470,4 +475,97 @@ body {
 #settings-page p[data-i18n="update_note"] {
   font-size: 1rem;
   line-height: 1.6;
+}
+
+
+.snackbar-appearance {
+  margin-top: 1rem;
+}
+
+.snackbar-color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.65rem;
+}
+
+.snackbar-color-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.snackbar-color-item input {
+  width: 100%;
+  min-height: 40px;
+  border: none;
+  border-radius: 0.6rem;
+  background: transparent;
+}
+
+.snackbar {
+  position: fixed;
+  left: 50%;
+  bottom: 5.3rem;
+  transform: translateX(-50%) translateY(20px);
+  min-width: min(88vw, 560px);
+  max-width: min(88vw, 560px);
+  padding: 0.85rem 1rem;
+  border-radius: 0.8rem;
+  color: var(--snackbar-text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 40;
+  box-shadow: 0 10px 26px rgb(0 0 0 / 32%);
+}
+
+.snackbar.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.snackbar.has-output {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.snackbar.info { background: var(--snackbar-info); }
+.snackbar.success { background: var(--snackbar-success); }
+.snackbar.warning { background: var(--snackbar-warning); }
+.snackbar.error { background: var(--snackbar-error); }
+
+.overlay.blur {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 35%);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 60;
+}
+
+.overlay.blur.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.snackbar-dialog {
+  z-index: 61;
+  width: min(92vw, 640px);
+  border: 1px solid var(--ui-card-border);
+  border-radius: 1rem;
+  background: var(--ui-card-bg);
+  color: var(--ui-text);
+}
+
+.snackbar-output-pre {
+  max-height: 48vh;
+  overflow: auto;
+  white-space: pre-wrap;
+  background: color-mix(in srgb, var(--ui-card-bg) 78%, #000 22%);
+  border-radius: 0.7rem;
+  padding: 0.85rem;
 }

@@ -1,6 +1,22 @@
 const THEME_MODE_KEY = "themeMode";
 const THEME_PRESET_KEY = "themePreset";
 
+const SNACKBAR_COLOR_KEYS = {
+  info: "snackbarInfoColor",
+  success: "snackbarSuccessColor",
+  warning: "snackbarWarningColor",
+  error: "snackbarErrorColor",
+  text: "snackbarTextColor",
+};
+
+const SNACKBAR_DEFAULTS = {
+  info: "#2196f3",
+  success: "#43a047",
+  warning: "#f9a825",
+  error: "#e53935",
+  text: "#ffffff",
+};
+
 const THEME_PRESETS = {
   ocean: {
     dark: { "--ui-bg": "#111a26", "--ui-card-bg": "#1d2a3a", "--ui-card-border": "#334759", "--ui-pill-bg": "#9ecaff", "--ui-pill-text": "#003258", "--ui-nav-active": "#00497d", "--ui-nav-text": "#d1e4ff", "--ui-select-bg": "#3a546f", "--ui-select-border": "#6f90b2", "--ui-select-panel": "#273a4e", "--ui-select-panel-border": "#587493" },
@@ -81,6 +97,29 @@ function applyThemePreset(presetName) {
   document.querySelectorAll(".theme-preset-btn").forEach(btn => btn.classList.toggle("active", btn.dataset.themePreset === presetName));
 }
 
+
+function applySnackbarColors() {
+  const root = document.documentElement;
+  Object.entries(SNACKBAR_COLOR_KEYS).forEach(([type, key]) => {
+    const value = localStorage.getItem(key) || SNACKBAR_DEFAULTS[type];
+    root.style.setProperty(`--snackbar-${type}`, value);
+    const input = document.getElementById(`snackbar-${type}-color`);
+    if (input) input.value = value;
+  });
+}
+
+function bindSnackbarColorInputs() {
+  Object.entries(SNACKBAR_COLOR_KEYS).forEach(([type, key]) => {
+    const input = document.getElementById(`snackbar-${type}-color`);
+    if (!input) return;
+
+    input.addEventListener("input", () => {
+      const value = input.value || SNACKBAR_DEFAULTS[type];
+      localStorage.setItem(key, value);
+      document.documentElement.style.setProperty(`--snackbar-${type}`, value);
+    });
+  });
+}
 window.addEventListener("DOMContentLoaded", () => {
   const modeBtn = document.getElementById("theme-mode-btn");
   const modeOptions = document.getElementById("theme-mode-options");
@@ -112,6 +151,8 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   applyThemePreset(getStoredPreset());
+  applySnackbarColors();
+  bindSnackbarColorInputs();
 
   window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
     if (getStoredMode() === "auto") {

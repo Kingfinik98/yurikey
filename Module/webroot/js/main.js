@@ -4,8 +4,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const BASE_SCRIPT = "/data/adb/modules/Yurikey/Yuri/";
   // Make sure language.js is already loaded so that t and tFormat are available
 
-  function showToast(_message, _type = "info", _duration = 3000) {
-    // Snackbar feature removed by request.
+  let toastTimer;
+  let activeToastOutput = "";
+
+  function showOutputDialog(output, scriptName = "") {
+    const dialog = document.getElementById("snackbar-output-dialog");
+    const overlay = document.getElementById("snackbar-output-overlay");
+    const outputEl = document.getElementById("snackbar-output-text");
+    if (!dialog || !overlay || !outputEl) return;
+
+    outputEl.textContent = output || t("snackbar_no_output");
+    dialog.dataset.scriptName = scriptName;
+    overlay.classList.add("active");
+    if (!dialog.open) dialog.showModal();
+  }
+
+  function closeOutputDialog() {
+    const dialog = document.getElementById("snackbar-output-dialog");
+    const overlay = document.getElementById("snackbar-output-overlay");
+    if (!dialog || !overlay) return;
+
+    if (dialog.open) dialog.close();
+    overlay.classList.remove("active");
+  }
+
+  function showToast(message, type = "info", duration = 3000, output = "", scriptName = "") {
+    const snackbar = document.getElementById("snackbar");
+    if (!snackbar) return;
+
+    snackbar.textContent = message;
+    snackbar.className = `snackbar show ${type}`;
+    snackbar.title = output ? t("snackbar_tap_for_output") : "";
+
+    if (output && output.trim()) {
+      activeToastOutput = output.trim();
+      snackbar.dataset.scriptName = scriptName;
+      snackbar.classList.add("has-output");
+    } else {
+      activeToastOutput = "";
+      delete snackbar.dataset.scriptName;
+      snackbar.classList.remove("has-output");
+    }
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      snackbar.classList.remove("show");
+    }, duration);
   }
 
   function runScript(scriptName, basePath, button) {
@@ -30,22 +74,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const raw = typeof output === "string" ? output.trim() : "";
 
       if (!raw) {
-        showToast(tFormat("success", { script: scriptName }), "success");
+        showToast(tFormat("success", { script: scriptName }), "success", 3000, "", scriptName);
         return;
       }
 
       try {
         const json = JSON.parse(raw);
         if (json.success) {
-          showToast(tFormat("success", { script: scriptName }), "success");
+          const commandOutput = typeof json.output === "string" ? json.output.trim() : "";
+          showToast(tFormat("success", { script: scriptName }), "success", 3000, commandOutput, scriptName);
         } else if (json.error) {
-          showToast(tFormat("failed", { script: scriptName }) + ` (${json.error})`, "error", 4000);
+          showToast(tFormat("failed", { script: scriptName }) + ` (${json.error})`, "error", 4000, raw, scriptName);
         } else {
-          showToast(tFormat("failed", { script: scriptName }) + " (Unknown response)", "error", 4000);
+          showToast(tFormat("failed", { script: scriptName }) + " (Unknown response)", "error", 4000, raw, scriptName);
         }
       } catch {
-        // If output is not JSON, treat as success but inform user
-        showToast(tFormat("success", { script: scriptName }) + " (Non-JSON output)", "warning");
+        showToast(tFormat("success", { script: scriptName }) + " (Output available)", "warning", 3500, raw, scriptName);
       }
     };
 
@@ -260,6 +304,21 @@ document.addEventListener("DOMContentLoaded", () => {
   window.showErrorToast = (message, duration = 4000) => showToast(message, "error", duration);
   window.showWarningToast = (message, duration = 3500) => showToast(message, "warning", duration);
   window.showInfoToast = (message, duration = 3000) => showToast(message, "info", duration);
+
+  const snackbar = document.getElementById("snackbar");
+  const dialog = document.getElementById("snackbar-output-dialog");
+  const overlay = document.getElementById("snackbar-output-overlay");
+  const closeOutputBtn = document.getElementById("snackbar-output-close");
+
+  snackbar?.addEventListener("click", () => {
+    if (!activeToastOutput) return;
+    const scriptName = snackbar.dataset.scriptName || "";
+    showOutputDialog(activeToastOutput, scriptName);
+  });
+
+  closeOutputBtn?.addEventListener("click", closeOutputDialog);
+  overlay?.addEventListener("click", closeOutputDialog);
+  dialog?.addEventListener("close", () => overlay?.classList.remove("active"));
 
   // Refresh info button event
   const refreshBtn = document.getElementById("refresh-info-btn");

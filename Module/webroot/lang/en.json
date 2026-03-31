@@ -67,5 +67,16 @@
   "settings_language": "Language",
   "menu_keybox_title": "Keybox",
   "advance_upd_yurirka": "Update RKA config",
-  "advance_widevinel1": "Fix Widevine L1"
+  "advance_widevinel1": "Fix Widevine L1",
+  "settings_snackbar_colors": "Snackbar Colors",
+  "settings_snackbar_colors_desc": "These colors are applied directly, independent from optimized theme palette calculations.",
+  "snackbar_info_color": "Info",
+  "snackbar_success_color": "Success",
+  "snackbar_warning_color": "Warning",
+  "snackbar_error_color": "Error",
+  "snackbar_text_color": "Text",
+  "snackbar_output_title": "Script output",
+  "dialog_close": "Close",
+  "snackbar_tap_for_output": "Tap once to view script output",
+  "snackbar_no_output": "No script output available."
 }

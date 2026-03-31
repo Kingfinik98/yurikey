@@ -160,6 +160,33 @@
             <button class="theme-preset-btn" data-theme-preset="sunset" data-i18n="theme_preset_sunset">Sunset</button>
             <button class="theme-preset-btn" data-theme-preset="violet" data-i18n="theme_preset_violet">Violet</button>
           </div>
+
+          <div class="snackbar-appearance">
+            <h6 data-i18n="settings_snackbar_colors">Snackbar Colors</h6>
+            <p class="small-text" data-i18n="settings_snackbar_colors_desc">These colors are applied directly, independent from optimized theme palette calculations.</p>
+            <div class="snackbar-color-grid">
+              <label class="snackbar-color-item">
+                <span data-i18n="snackbar_info_color">Info</span>
+                <input type="color" id="snackbar-info-color" value="#2196f3" />
+              </label>
+              <label class="snackbar-color-item">
+                <span data-i18n="snackbar_success_color">Success</span>
+                <input type="color" id="snackbar-success-color" value="#43a047" />
+              </label>
+              <label class="snackbar-color-item">
+                <span data-i18n="snackbar_warning_color">Warning</span>
+                <input type="color" id="snackbar-warning-color" value="#f9a825" />
+              </label>
+              <label class="snackbar-color-item">
+                <span data-i18n="snackbar_error_color">Error</span>
+                <input type="color" id="snackbar-error-color" value="#e53935" />
+              </label>
+              <label class="snackbar-color-item">
+                <span data-i18n="snackbar_text_color">Text</span>
+                <input type="color" id="snackbar-text-color" value="#ffffff" />
+              </label>
+            </div>
+          </div>
         </article>
 
         <article class="surface-variant block">
@@ -212,6 +239,18 @@
       <span data-i18n="nav_settings">Settings</span>
     </button>
   </nav>
+
+
+  <div id="snackbar" class="snackbar" role="status" aria-live="polite"></div>
+
+  <div id="snackbar-output-overlay" class="overlay blur"></div>
+  <dialog id="snackbar-output-dialog" class="snackbar-dialog">
+    <h5 data-i18n="snackbar_output_title">Script output</h5>
+    <pre id="snackbar-output-text" class="snackbar-output-pre"></pre>
+    <nav class="right-align no-space">
+      <button id="snackbar-output-close" class="transparent link" data-i18n="dialog_close">Close</button>
+    </nav>
+  </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/beercss@3.9.8/dist/cdn/beer.min.js" type="module"></script>
   <script src="js/language.js"></script>

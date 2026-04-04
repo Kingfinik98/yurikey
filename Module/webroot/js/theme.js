@@ -98,63 +98,104 @@ function applyThemePreset(presetName) {
 }
 
 
+function normalizeHex(value, fallback = "#2196f3") {
+  const raw = (value || "").trim();
+  const match = raw.match(/^#?[0-9a-fA-F]{6}$/);
+  if (!match) return fallback;
+  return raw.startsWith("#") ? raw.toLowerCase() : `#${raw.toLowerCase()}`;
+}
+
+function hexToRgbTuple(hex) {
+  const n = normalizeHex(hex).replace("#", "");
+  return {
+    r: parseInt(n.slice(0, 2), 16),
+    g: parseInt(n.slice(2, 4), 16),
+    b: parseInt(n.slice(4, 6), 16),
+  };
+}
+
+function rgbToHexTuple(r, g, b) {
+  return `#${[r, g, b].map(v => Number(v).toString(16).padStart(2, "0")).join("")}`;
+}
+
+function setSnackbarColor(type, value) {
+  const key = SNACKBAR_COLOR_KEYS[type];
+  const normalized = normalizeHex(value, SNACKBAR_DEFAULTS[type]);
+  localStorage.setItem(key, normalized);
+  document.documentElement.style.setProperty(`--snackbar-${type}`, normalized);
+
+  const input = document.getElementById(`snackbar-${type}-color`);
+  const preview = document.getElementById(`snackbar-${type}-preview`);
+  if (input) input.value = normalized;
+  if (preview) preview.style.background = normalized;
+  return normalized;
+}
+
 function applySnackbarColors() {
-  const root = document.documentElement;
   Object.entries(SNACKBAR_COLOR_KEYS).forEach(([type, key]) => {
     const value = localStorage.getItem(key) || SNACKBAR_DEFAULTS[type];
-    root.style.setProperty(`--snackbar-${type}`, value);
-    const input = document.getElementById(`snackbar-${type}-color`);
-    if (input) input.value = value;
+    setSnackbarColor(type, value);
   });
 }
 
 function bindSnackbarColorInputs() {
-  Object.entries(SNACKBAR_COLOR_KEYS).forEach(([type, key]) => {
+  Object.keys(SNACKBAR_COLOR_KEYS).forEach(type => {
     const input = document.getElementById(`snackbar-${type}-color`);
     if (!input) return;
 
-    input.addEventListener("input", () => {
-      const value = input.value || SNACKBAR_DEFAULTS[type];
-      localStorage.setItem(key, value);
-      document.documentElement.style.setProperty(`--snackbar-${type}`, value);
-    });
+    input.addEventListener("change", () => setSnackbarColor(type, input.value));
+    input.addEventListener("blur", () => setSnackbarColor(type, input.value));
   });
 }
 
 function bindSnackbarColorTool() {
   const target = document.getElementById("snackbar-color-target");
-  const picker = document.getElementById("snackbar-color-tool-picker");
   const hexInput = document.getElementById("snackbar-color-tool-hex");
+  const preview = document.getElementById("snackbar-color-tool-preview");
+  const rangeR = document.getElementById("snackbar-color-r");
+  const rangeG = document.getElementById("snackbar-color-g");
+  const rangeB = document.getElementById("snackbar-color-b");
   const applyBtn = document.getElementById("snackbar-color-tool-apply");
-  if (!target || !picker || !hexInput || !applyBtn) return;
+  if (!target || !hexInput || !preview || !rangeR || !rangeG || !rangeB || !applyBtn) return;
+
+  const syncFromHex = (hex) => {
+    const rgb = hexToRgbTuple(hex);
+    rangeR.value = rgb.r;
+    rangeG.value = rgb.g;
+    rangeB.value = rgb.b;
+    preview.style.background = normalizeHex(hex);
+    hexInput.value = normalizeHex(hex);
+  };
 
   const syncFromTarget = () => {
     const type = target.value || "info";
     const input = document.getElementById(`snackbar-${type}-color`);
-    const current = input?.value || SNACKBAR_DEFAULTS[type];
-    picker.value = current;
-    hexInput.value = current;
+    syncFromHex(input?.value || SNACKBAR_DEFAULTS[type]);
+  };
+
+  const syncFromRanges = () => {
+    const hex = rgbToHexTuple(rangeR.value, rangeG.value, rangeB.value);
+    preview.style.background = hex;
+    hexInput.value = hex;
   };
 
   target.addEventListener("change", syncFromTarget);
-  picker.addEventListener("input", () => {
-    hexInput.value = picker.value;
+  [rangeR, rangeG, rangeB].forEach(range => range.addEventListener("input", syncFromRanges));
+  hexInput.addEventListener("input", () => {
+    if (/^#?[0-9a-fA-F]{6}$/.test(hexInput.value.trim())) {
+      syncFromHex(hexInput.value);
+    }
   });
 
   applyBtn.addEventListener("click", () => {
     const type = target.value || "info";
-    const normalized = /^#[0-9a-fA-F]{6}$/.test(hexInput.value) ? hexInput.value : picker.value;
-    const key = SNACKBAR_COLOR_KEYS[type];
-    const input = document.getElementById(`snackbar-${type}-color`);
-    if (input) input.value = normalized;
-    picker.value = normalized;
-    hexInput.value = normalized;
-    localStorage.setItem(key, normalized);
-    document.documentElement.style.setProperty(`--snackbar-${type}`, normalized);
+    const applied = setSnackbarColor(type, hexInput.value);
+    syncFromHex(applied);
   });
 
   syncFromTarget();
 }
+
 window.addEventListener("DOMContentLoaded", () => {
   const modeBtn = document.getElementById("theme-mode-btn");
   const modeOptions = document.getElementById("theme-mode-options");

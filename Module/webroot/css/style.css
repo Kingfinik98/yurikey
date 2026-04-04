@@ -93,7 +93,8 @@ body {
 #home-page #refresh-info-btn,
 #actions-page .menu-btn,
 #advance-menu .menu-btn,
-#settings-page .update-support .menu-btn {
+#settings-page .update-support .menu-btn,
+#settings-page .settings-history-card .menu-btn {
   border-radius: 999px;
   min-height: 46px;
   padding: 0.65rem 1rem;
@@ -147,7 +148,8 @@ body {
 #home-page #refresh-info-btn:hover,
 #actions-page .menu-btn:hover,
 #advance-menu .menu-btn:hover,
-#settings-page .update-support .menu-btn:hover {
+#settings-page .update-support .menu-btn:hover,
+#settings-page .settings-history-card .menu-btn:hover {
   background: var(--ui-pill-bg-hover);
 }
 
@@ -177,7 +179,8 @@ body {
 #home-page #refresh-info-btn:active,
 #actions-page .menu-btn:active,
 #advance-menu .menu-btn:active,
-#settings-page .update-support .menu-btn:active {
+#settings-page .update-support .menu-btn:active,
+#settings-page .settings-history-card .menu-btn:active {
   transform: translateY(1px);
 }
 
@@ -618,24 +621,26 @@ body {
   padding: 0.6rem 0.75rem;
 }
 
-#snackbar-color-tool-picker {
+.snackbar-color-preview {
   width: 100%;
-  min-height: 42px;
-  border: none;
+  min-height: 34px;
+  border-radius: 0.6rem;
+  border: 1px solid var(--ui-select-border);
+}
+
+.snackbar-color-hex,
+#snackbar-color-tool-hex {
   border-radius: 0.7rem;
-  background: transparent;
+  border: 1px solid var(--ui-select-border);
+  background: var(--ui-select-bg);
+  color: var(--ui-text);
+  padding: 0.45rem 0.65rem;
 }
 
-.settings-history-card .menu-btn {
-  margin-top: 0.5rem;
-  border-radius: 999px;
-  min-height: 44px;
-  border: 1px solid var(--ui-pill-border);
-  background: var(--ui-pill-bg);
-  color: var(--ui-pill-text);
-  font-weight: 700;
+.snackbar-range-label {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: center;
+  gap: 0.45rem;
 }
 
-.settings-history-card .menu-btn:hover {
-  background: var(--ui-pill-bg-hover);
-}

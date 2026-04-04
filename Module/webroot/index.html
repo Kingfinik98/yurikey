@@ -167,23 +167,28 @@
             <div class="snackbar-color-grid">
               <label class="snackbar-color-item">
                 <span data-i18n="snackbar_info_color">Info</span>
-                <input type="color" id="snackbar-info-color" value="#2196f3" />
+                <div id="snackbar-info-preview" class="snackbar-color-preview"></div>
+                <input type="text" id="snackbar-info-color" class="snackbar-color-hex" value="#2196f3" maxlength="7" />
               </label>
               <label class="snackbar-color-item">
                 <span data-i18n="snackbar_success_color">Success</span>
-                <input type="color" id="snackbar-success-color" value="#43a047" />
+                <div id="snackbar-success-preview" class="snackbar-color-preview"></div>
+                <input type="text" id="snackbar-success-color" class="snackbar-color-hex" value="#43a047" maxlength="7" />
               </label>
               <label class="snackbar-color-item">
                 <span data-i18n="snackbar_warning_color">Warning</span>
-                <input type="color" id="snackbar-warning-color" value="#f9a825" />
+                <div id="snackbar-warning-preview" class="snackbar-color-preview"></div>
+                <input type="text" id="snackbar-warning-color" class="snackbar-color-hex" value="#f9a825" maxlength="7" />
               </label>
               <label class="snackbar-color-item">
                 <span data-i18n="snackbar_error_color">Error</span>
-                <input type="color" id="snackbar-error-color" value="#e53935" />
+                <div id="snackbar-error-preview" class="snackbar-color-preview"></div>
+                <input type="text" id="snackbar-error-color" class="snackbar-color-hex" value="#e53935" maxlength="7" />
               </label>
               <label class="snackbar-color-item">
                 <span data-i18n="snackbar_text_color">Text</span>
-                <input type="color" id="snackbar-text-color" value="#ffffff" />
+                <div id="snackbar-text-preview" class="snackbar-color-preview"></div>
+                <input type="text" id="snackbar-text-color" class="snackbar-color-hex" value="#ffffff" maxlength="7" />
               </label>
             </div>
             <div class="snackbar-color-tool">
@@ -196,7 +201,10 @@
                   <option value="error" data-i18n="snackbar_error_color">Error</option>
                   <option value="text" data-i18n="snackbar_text_color">Text</option>
                 </select>
-                <input type="color" id="snackbar-color-tool-picker" value="#2196f3" />
+                <div id="snackbar-color-tool-preview" class="snackbar-color-preview"></div>
+                <label class="snackbar-range-label">R <input type="range" id="snackbar-color-r" min="0" max="255" value="33" /></label>
+                <label class="snackbar-range-label">G <input type="range" id="snackbar-color-g" min="0" max="255" value="150" /></label>
+                <label class="snackbar-range-label">B <input type="range" id="snackbar-color-b" min="0" max="255" value="243" /></label>
                 <input type="text" id="snackbar-color-tool-hex" value="#2196f3" maxlength="7" />
                 <button id="snackbar-color-tool-apply" class="menu-btn" data-i18n="snackbar_color_apply">Apply Color</button>
               </div>

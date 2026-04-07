@@ -30,7 +30,6 @@ tool_apps_data() {
     /storage/emulated/0/Android/data/bin.mt.plus* \
     /storage/emulated/0/Android/data/com.omarea.vtools \
     /storage/emulated/0/Android/data/moe.shizuku.privileged.api \
-    /storage/emulated/0/MT2 \
     /storage/emulated/0/com.termux \
     /storage/emulated/0/bin.mt.termux \
     /storage/emulated/0/Android/data/com.sevtinge.hyperceiler \
@@ -38,6 +37,7 @@ tool_apps_data() {
     do
         remove_path "$p"
     done
+    mv /storage/emulated/0/MT2 /storage/emulated/0/MT
 }
 
 remote_control_data_apps() {

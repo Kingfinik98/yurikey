@@ -5,7 +5,7 @@ for SCRIPT in \
   "target_txt.sh" \
   "security_patch.sh" \
   "boot_hash.sh" \
-  "yuri_keybox.sh" \
+  "yuri_keybox.sh"
 do
   if ! sh "$MODPATH/Yuri/$SCRIPT"; then
     echo "- Error: $SCRIPT failed. Aborting..."

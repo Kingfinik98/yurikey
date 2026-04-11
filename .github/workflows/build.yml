@@ -1,9 +1,7 @@
 name: Build module
 
 on:
-  push:
-    paths:
-      - changelog.md
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -28,34 +26,12 @@ jobs:
           VERSION_CODE=$(echo $VERSION | sed 's/v//' | sed 's/\.//g')
           RAW_VERSION=$(echo $VERSION | sed 's/v//')
           
-          # Extract the old version code directly from module.prop
-          OLD_VERSION_CODE=$(grep '^versionCode=' Module/module.prop | cut -d'=' -f2)
-          
-          # Default to 0 if module.prop didn't have a versionCode for some reason
-          if [ -z "$OLD_VERSION_CODE" ]; then
-            OLD_VERSION_CODE=0
-          fi
-
-          # Compare the integers
-          if [ "$VERSION_CODE" -gt "$OLD_VERSION_CODE" ]; then
-            echo "New version detected: $VERSION_CODE is greater than $OLD_VERSION_CODE. Proceeding..."
-            echo "skip=false" >> $GITHUB_OUTPUT
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-            echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
-            echo "raw_version=$RAW_VERSION" >> $GITHUB_OUTPUT
-          else
-            echo "Version $VERSION (code: $VERSION_CODE) is not higher than the current release ($OLD_VERSION_CODE). Skipping."
-            echo "skip=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Update module.prop
-        if: steps.version.outputs.skip == 'false'
         run: |
           sed -i "s/^version=.*/version=${{ steps.version.outputs.version }}/" Module/module.prop
           sed -i "s/^versionCode=.*/versionCode=${{ steps.version.outputs.version_code }}/" Module/module.prop
 
       - name: Update update.json
-        if: steps.version.outputs.skip == 'false'
         run: |
           ZIP_URL="https://github.com/Yurii0307/yurikey/releases/download/${{ steps.version.outputs.version }}/Yurikey-${{ steps.version.outputs.version }}.signed.zip"
           
@@ -66,13 +42,11 @@ jobs:
              update.json > update_tmp.json && mv update_tmp.json update.json
  
       - name: Zip Module folder (Upload module)
-        if: steps.version.outputs.skip == 'false'
         run: |
           cd Module
           zip -r ../Yurikey-${{ steps.version.outputs.version }}.signed.zip .
 
       - name: Commit and push if changed
-        if: steps.version.outputs.skip == 'false'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
@@ -87,7 +61,6 @@ jobs:
           fi
 
       - name: Create Release
-        if: steps.version.outputs.skip == 'false'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.version }}
